@@ -1,0 +1,26 @@
+{
+  "name": "example",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node --require ts-node/register start.ts",
+    "test": "jest --config jest.json"
+  },
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "pjson": "^1.0.9",
+    "ts-framework": "git+https://github.com/nxtep-io/ts-framework.git#master",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.9.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/supertest": "^2.0.4",
+    "hat": "^0.0.3",
+    "jest": "^22.4.3",
+    "mongodb-memory-server": "^1.7.3",
+    "supertest": "^3.0.0",
+    "ts-jest": "^22.4.4"
+  }
+}
