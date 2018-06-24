@@ -1,0 +1,46 @@
+{
+  "name": "ts-framework-sql",
+  "version": "1.0.0-alpha.1",
+  "description": "A minimalistic web framework for TS",
+  "author": "Luis Brito <luis@nxtep.io>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nxtep-io/ts-framework-sql.git"
+  },
+  "scripts": {
+    "build": "yarn run -s clean && tsc",
+    "clean": "rimraf ./dist",
+    "test": "yarn run -s lint && jest --config jest.json",
+    "lint": "tslint --project tsconfig.json",
+    "precommit": "yarn test"
+  },
+  "dependencies": {
+    "@types/sinon": "^4.3.1",
+    "pg": "^7.4.1",
+    "reflect-metadata": "^0.1.12",
+    "ts-framework": "git+https://github.com/nxtep-io/ts-framework.git#master",
+    "typeorm": "^0.2.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.1",
+    "@types/jest": "^21.1.2",
+    "@types/winston": "^2.3.9",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "nodemon": "^1.12.1",
+    "rimraf": "^2.6.2",
+    "sinon": "^5.0.3",
+    "supertest": "^3.0.0",
+    "ts-jest": "^21.1.2",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.5.0",
+    "typescript": "^2.5.3"
+  }
+}
