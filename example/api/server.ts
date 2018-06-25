@@ -1,17 +1,17 @@
 import Server, { Logger } from 'ts-framework';
-import StatusController from './controllers/StatusController';
+import { StatusController, UserController } from './controllers';
 import EntityDB from './database';
 
 export default class MainServer extends Server {
   protected database: EntityDB;
-    
+
   constructor() {
     super({
       cors: true,
       logger: Logger,
       secret: 'PLEASE_CHANGE_ME',
       port: process.env.PORT as any || 3000,
-      controllers: { StatusController },
+      controllers: { StatusController, UserController },
       // sentry: {
       //   dsn: ''
       // }

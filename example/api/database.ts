@@ -1,27 +1,24 @@
 import { Logger } from 'ts-framework';
-import { createConnection, getConnectionOptions, Connection } from 'typeorm';
+import { EntityDatabase } from '../../lib';
+import Config from '../config';
+import {
+  createConnection, getConnectionOptions,
+  Connection, EntityManager, Repository, ObjectType, EntitySchema,
+} from 'typeorm';
+import { User } from './models';
 
-export default class EntityDB {
-  static getInstance(): any {
-    return new EntityDB();
-  }
+export default class MainDatabase extends EntityDatabase {
+  protected static readonly instance: MainDatabase = new MainDatabase({
+    connectionOpts: {
+      ...Config.database,
+      entities: [User],
+    },
+  } as any);
 
   /**
-   * Connects to the entities DB.
+   * Gets the singleton database instance.
    */
-  public async connect(): Promise<Connection> {
-    // Let's be really sure we won't change the DB schema on production
-    const connectionOptions = await getConnectionOptions();
-    
-    if (process.env.NODE_ENV === 'production') {
-      Object.assign(connectionOptions, { synchronize: false });
-    }
-
-    const connection = await createConnection(connectionOptions);
-
-    // TODO: Better logging
-    Logger.info(`Successfully connected to the database`, { db: connection.options.database });
-
-    return connection;
+  static getInstance(): any {
+    return this.instance;
   }
 }

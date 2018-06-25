@@ -7,12 +7,15 @@ export default class User {
   id: string;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
+  name: string;
 
   @Column({ unique: true })
   email: string;
+
+  constructor(data: Partial<User> = {}) {
+    this.id = data.id;
+    this.name = data.name;
+    this.email = data.email;
+  }
 
 }
