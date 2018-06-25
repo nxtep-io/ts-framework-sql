@@ -1,5 +1,5 @@
 import Server, { Logger } from 'ts-framework';
-import { StatusController, UserController } from './controllers';
+import * as Controllers from './controllers';
 import EntityDB from './database';
 
 export default class MainServer extends Server {
@@ -11,7 +11,7 @@ export default class MainServer extends Server {
       logger: Logger,
       secret: 'PLEASE_CHANGE_ME',
       port: process.env.PORT as any || 3000,
-      controllers: { StatusController, UserController },
+      controllers: Controllers,
       // sentry: {
       //   dsn: ''
       // }

@@ -23,9 +23,18 @@ export class EntityDatabase implements Database {
    * @param connection The TypeORM connection to the database
    */
   constructor(protected options: EntityDatabaseOptions) {
+    this.logger = options.logger || new Logger();
+
     // TODO: Handle connection url
     this.connection = options.connection;
     this.connectionOptions = options.connection ? options.connection.options : options.connectionOpts;
+
+    // Log entities initialization
+    if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
+      this.connectionOptions.entities.map((Entity: any) => {
+        this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
+      });
+    }
   }
 
   /**
@@ -34,18 +43,21 @@ export class EntityDatabase implements Database {
    * @returns A promise to the connection instance.
    */
   public async connect(): Promise<EntityDatabaseOptions> {
+    const { type, host, port, username, database, synchronize } = this.connectionOptions as any;
+
     if (this.logger) {
-      // TODO: Hide authentication information
-      this.logger.debug('Connecting to database', this.connectionOptions);
+      this.logger.debug('Connecting to the database', { type, host, port, username, database, synchronize });
     }
 
     if (this.connection) {
       await this.connection.connect();
-      return this.options;
     } else if (this.connectionOptions) {
       this.connection = await createConnection(this.connectionOptions);
-      return this.options;
     }
+    if (this.logger) {
+      this.logger.silly(`Successfully connected to the database`, { database });
+    }
+    return this.options;
   }
 
   /**

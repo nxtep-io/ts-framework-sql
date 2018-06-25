@@ -1,17 +1,19 @@
 import { Logger } from 'ts-framework';
-import { EntityDatabase } from '../../lib';
-import Config from '../config';
+
 import {
   createConnection, getConnectionOptions,
   Connection, EntityManager, Repository, ObjectType, EntitySchema,
 } from 'typeorm';
-import { User } from './models';
+
+import Config from '../config';
+import { EntityDatabase } from '../../lib';
+import * as Models from './models';
 
 export default class MainDatabase extends EntityDatabase {
   protected static readonly instance: MainDatabase = new MainDatabase({
     connectionOpts: {
       ...Config.database,
-      entities: [User],
+      entities: Object.values(Models),
     },
   } as any);
 
