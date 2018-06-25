@@ -1,7 +1,7 @@
-const type = 'mysql';
+import * as path from 'path';
 
 export default {
-  type,
+  type: 'mysql',
   host: process.env.DATABASE_HOST || 'localhost',
   port: parseInt(process.env.DATABASE_PORT || '3306', 10),
   username: process.env.DATABASE_USER || 'root',
@@ -10,18 +10,18 @@ export default {
   synchronize: true,
   logging: false,
   entities: [
-    'api/models/**/*.ts',
+    path.join(__dirname, '../api/models/**/*.ts'),
   ],
   migrations: [
-    'api/migration/**/*.ts',
+    path.join(__dirname, '../api/migrations/**/*.ts'),
   ],
   subscribers: [
-    'api/subscriber/**/*.ts',
+    path.join(__dirname, '../api/subscribers/**/*.ts'),
   ],
   cli: {
-    entitiesDir: 'api/models',
-    migrationsDir: 'api/migration',
-    subscribersDir: 'api/sub scriber',
+    entitiesDir: path.join(__dirname, '../api/models/**/*.ts'),
+    migrationsDir: path.join(__dirname, '../api/migrations/**/*.ts'),
+    subscribersDir: path.join(__dirname, '../api/subscribers/**/*.ts'),
   },
 };
 

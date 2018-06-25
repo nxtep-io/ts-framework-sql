@@ -14,15 +14,15 @@ export default class Project {
   @ManyToOne(type => Company, company => company.projects)
   company: Company;
 
-  // @JoinTable()
-  // @ManyToMany(type => User, user => user.projects)
-  // users: User[];
+  @JoinTable()
+  @ManyToMany(type => User, user => user.projects)
+  users: User[];
 
   constructor(data: Partial<Project> = {}) {
     this.id = data.id;
     this.name = data.name;
     this.company = data.company;
-    // this.users = data.users;
+    this.users = data.users;
   }
 
 }

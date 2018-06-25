@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, Index } from 'typeorm';
 import Project from './project';
 import Company from './company';
 
@@ -18,15 +18,15 @@ export default class User {
   @ManyToOne(type => Company, company => company.users)
   company: Company;
 
-  // @ManyToMany(type => Project, project => project.users)
-  // projects: Project[];
+  @ManyToMany(type => Project, project => project.users)
+  projects: Project[];
 
   constructor(data: Partial<User> = {}) {
     this.id = data.id;
     this.name = data.name;
     this.email = data.email;
     this.company = data.company;
-    // this.projects = data.projects;
+    this.projects = data.projects;
   }
 
 }

@@ -33,7 +33,7 @@ export default class ProjectController {
       ProjectController.projectRepository().find({
         skip: skip || 0,
         take: limit || 25,
-        relations: ['company'],
+        relations: ['company', 'users'],
       }),
     ]);
 
@@ -55,7 +55,7 @@ export default class ProjectController {
     const instance = await ProjectController
       .projectRepository()
       .findOneOrFail(req.params.id, {
-        relations: ['company'],
+        relations: ['company', 'users'],
       });
     return res.success(instance);
   }

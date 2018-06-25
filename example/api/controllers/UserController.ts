@@ -33,7 +33,7 @@ export default class UserController {
       UserController.userRepository().find({
         skip: skip || 0,
         take: limit || 25,
-        relations: ['company'],
+        relations: ['company', 'projects'],
       }),
     ]);
 
@@ -55,7 +55,7 @@ export default class UserController {
     const instance = await UserController
       .userRepository()
       .findOneOrFail(req.params.id, {
-        relations: ['company'],
+        relations: ['company', 'projects'],
       });
     return res.success(instance);
   }
@@ -74,7 +74,7 @@ export default class UserController {
   }
 
   /**
-   * Set the User compny by it's id.
+   * Set the User company by it's id.
    *
    * @param {BaseRequest} req The express request
    * @param {BaseResponse} res The express response
@@ -88,5 +88,22 @@ export default class UserController {
     instance.company = req.params.companyId;
     await UserController.userRepository().save(instance);
     return res.success(instance);
+  }
+
+  /**
+   * Add User to the Project by it's id.
+   *
+   * @param {BaseRequest} req The express request
+   * @param {BaseResponse} res The express response
+   */
+  @Post('/:id/project/:projectId')
+  static async addUser(req: BaseRequest, res: BaseResponse) {
+    const instance = await UserController.userRepository().findOneOrFail(req.params.id);
+    
+    return res.success(await UserController.userRepository()
+    .createQueryBuilder()
+    .relation(User, 'projects')
+    .of(instance)
+    .add(req.params.projectId));
   }
 }
