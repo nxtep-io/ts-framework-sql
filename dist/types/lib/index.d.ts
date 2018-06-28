@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Connection, ConnectionOptions } from 'typeorm';
+import { Connection, ConnectionOptions, ObjectType, EntitySchema, Repository } from 'typeorm';
 import { Logger, DatabaseOptions, Database } from '../common';
 export interface EntityDatabaseOptions extends DatabaseOptions {
     logger?: Logger;
@@ -32,4 +32,10 @@ export declare class EntityDatabase implements Database {
      * Disconnects from existing connection, if any.
      */
     disconnect(): Promise<void>;
+    /**
+     * Gets a single repository from connection manager.
+     *
+     * @param target The target class or table name
+     */
+    getRepository<Entity>(target: ObjectType<Entity> | EntitySchema<Entity> | string): Repository<Entity>;
 }

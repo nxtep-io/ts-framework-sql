@@ -22,6 +22,7 @@
   "include": [
     "./lib/**/*",
     "./common/**/*",
+    "./index.ts",
   ],
   "exclude": [
     "./tests/**/*",
