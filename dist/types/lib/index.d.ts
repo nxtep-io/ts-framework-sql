@@ -5,6 +5,7 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
     logger?: Logger;
     connection?: Connection;
     connectionOpts?: ConnectionOptions;
+    customQueriesDir?: string;
     entities: any[];
 }
 export declare class EntityDatabase implements Database {
@@ -12,6 +13,7 @@ export declare class EntityDatabase implements Database {
     protected logger: Logger;
     protected connection: Connection;
     protected connectionOptions: ConnectionOptions;
+    protected readonly customQueries: Map<string, string>;
     /**
      * Creates a new Entity database for SQL drivers.
      *
@@ -38,4 +40,7 @@ export declare class EntityDatabase implements Database {
      * @param target The target class or table name
      */
     getRepository<Entity>(target: ObjectType<Entity> | EntitySchema<Entity> | string): Repository<Entity>;
+    executeCustomQuery<T>(name: string, params?: any[]): Promise<any | T>;
+    private loadCustomQueries();
+    private loadCustomQuery(filePath);
 }

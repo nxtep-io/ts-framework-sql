@@ -4,11 +4,15 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
 import { Logger, DatabaseOptions, Database } from '../common';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as glob from 'glob';
 
 export interface EntityDatabaseOptions extends DatabaseOptions {
   logger?: Logger;
   connection?: Connection;
   connectionOpts?: ConnectionOptions;
+  customQueriesDir?: string;
   entities: any[];
 }
 
@@ -16,6 +20,7 @@ export class EntityDatabase implements Database {
   protected logger: Logger;
   protected connection: Connection;
   protected connectionOptions: ConnectionOptions;
+  protected readonly customQueries: Map<string, string> = new Map();
 
   /**
    * Creates a new Entity database for SQL drivers.
@@ -34,6 +39,9 @@ export class EntityDatabase implements Database {
       this.connectionOptions.entities.map((Entity: any) => {
         this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
       });
+    }
+    if (options.customQueriesDir) {
+      this.loadCustomQueries();
     }
   }
 
@@ -87,5 +95,27 @@ export class EntityDatabase implements Database {
    */
   public getRepository<Entity>(target: ObjectType<Entity> | EntitySchema<Entity> | string): Repository<Entity> {
     return this.connection.manager.getRepository(target as any) as any;
+  }
+
+  public async executeCustomQuery<T>(name: string, params: any[] = []): Promise<any|T> {
+    const query = this.customQueries.get(name);
+    return this.connection.query(query, params) as T|any;
+  }
+
+  private loadCustomQueries(): void {
+    glob(path.join(this.options.customQueriesDir, './**/*.sql'), (err, matches) => {
+      if (err) {
+        // Do something
+      }
+      matches.forEach(filePath => this.loadCustomQuery(filePath));
+    });
+  }
+
+  private loadCustomQuery(filePath: string) {
+    const location = path.relative(this.options.customQueriesDir, filePath);
+    const name = location.slice(0, location.lastIndexOf('.'));
+    const query = fs.readFileSync(filePath).toString();
+    this.logger.silly(`${name} was added with ${query}`);
+    this.customQueries.set(name, query);
   }
 }
