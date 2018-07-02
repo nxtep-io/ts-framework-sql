@@ -115,7 +115,6 @@ export class EntityDatabase implements Database {
     const location = path.relative(this.options.customQueriesDir, filePath);
     const name = location.slice(0, location.lastIndexOf('.'));
     const query = fs.readFileSync(filePath).toString();
-    this.logger.silly(`${name} was added with ${query}`);
     this.customQueries.set(name, query);
   }
 }
