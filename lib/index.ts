@@ -97,11 +97,21 @@ export class EntityDatabase implements Database {
     return this.connection.manager.getRepository(target as any) as any;
   }
 
+  /**
+   * Executes a pre loaded query from the queries directory
+   * The query name is relative to the customQueriesDir, so if you saved in
+   * `queries/user/list.sql` then, the identifier will `be user/list`
+   * @param name The identifier of the query to be executed
+   * @param params Any params if needed to add to the query
+   */
   public async executeCustomQuery<T>(name: string, params: any[] = []): Promise<any|T> {
     const query = this.customQueries.get(name);
     return this.connection.query(query, params) as T|any;
   }
 
+  /**
+   * Loads all custom queries from the customQueriesDir path
+   */
   private loadCustomQueries(): void {
     glob(path.join(this.options.customQueriesDir, './**/*.sql'), (err, matches) => {
       if (err) {
@@ -111,6 +121,10 @@ export class EntityDatabase implements Database {
     });
   }
 
+  /**
+   * Loads a customQuery to the memory
+   * @param filePath The file path to be loaded in memory
+   */
   private loadCustomQuery(filePath: string) {
     const location = path.relative(this.options.customQueriesDir, filePath);
     const name = location.slice(0, location.lastIndexOf('.'));
