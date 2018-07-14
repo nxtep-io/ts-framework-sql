@@ -37,7 +37,11 @@ export class EntityDatabase implements Database {
     // Log entities initialization
     if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
       this.connectionOptions.entities.map((Entity: any) => {
-        this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
+        if (Entity && Entity.prototype && Entity.prototype.constructor) {
+          this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
+        } else {
+          this.logger.warn(`Invalid model registered in database: ${Entity}`, Entity);
+        }
       });
     }
     if (options.customQueriesDir) {
@@ -104,9 +108,9 @@ export class EntityDatabase implements Database {
    * @param name The identifier of the query to be executed
    * @param params Any params if needed to add to the query
    */
-  public async executeCustomQuery<T>(name: string, params: any[] = []): Promise<any|T> {
+  public async executeCustomQuery<T>(name: string, params: any[] = []): Promise<any | T> {
     const query = this.customQueries.get(name);
-    return this.connection.query(query, params) as T|any;
+    return this.connection.query(query, params) as T | any;
   }
 
   /**
