@@ -86,6 +86,13 @@
   version "10.0.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.3.tgz#1f89840c7aac2406cc43a2ecad98fc02a8e130e4"
 
+"@types/raven@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@types/raven/-/raven-2.5.1.tgz#62ef0a59e29691945e1f295b62ed199619cbd9b6"
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
+
 "@types/serve-static@*":
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.13.2.tgz#f5ac4d7a6420a99a6a45af4719f4dcd8cd907a48"
@@ -3430,6 +3437,16 @@ raven@^2.1.0, raven@^2.2.1:
     timed-out "4.0.1"
     uuid "3.0.0"
 
+raven@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/raven/-/raven-2.6.3.tgz#207475a12809277ef54eaceafe2597ff65262ab4"
+  dependencies:
+    cookie "0.3.1"
+    md5 "^2.2.1"
+    stack-trace "0.0.10"
+    timed-out "4.0.1"
+    uuid "3.0.0"
+
 raw-body@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.3.2.tgz#bcd60c77d3eb93cde0050295c3f379389bc88f89"
@@ -4233,6 +4250,17 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
+ts-framework-common@nxtep-io/ts-framework-common#master:
+  version "1.0.0"
+  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/80092cbbbd7991e1559114a338c3414a5ec3bafb"
+  dependencies:
+    "@types/raven" "^2.5.1"
+    "@types/winston" "^2.3.9"
+    clean-stack "^1.3.0"
+    raven "^2.6.3"
+    winston "2.4"
+    winston-raven-sentry "^1.0.1"
+
 "ts-framework@git+https://github.com/nxtep-io/ts-framework.git#master":
   version "1.0.0-rc.1"
   resolved "git+https://github.com/nxtep-io/ts-framework.git#e29a9d28695f747ed36287414fffc464c5e9a3a5"
@@ -4622,6 +4650,17 @@ winston-raven-sentry@^1.0.1:
   dependencies:
     lodash "^4.17.4"
     raven "^2.1.0"
+
+winston@2.4:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.3.tgz#7a9fdab371b6d3d9b63a592947846d856948c517"
+  dependencies:
+    async "~1.0.0"
+    colors "1.0.x"
+    cycle "1.0.x"
+    eyes "0.1.x"
+    isstream "0.1.x"
+    stack-trace "0.0.x"
 
 winston@^2.4.0:
   version "2.4.2"

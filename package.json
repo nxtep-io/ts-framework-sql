@@ -26,6 +26,7 @@
     "pg": "^7.4.1",
     "reflect-metadata": "^0.1.12",
     "ts-framework": "git+https://github.com/nxtep-io/ts-framework.git#master",
+    "ts-framework-common": "nxtep-io/ts-framework-common#master",
     "typeorm": "^0.2.4"
   },
   "devDependencies": {
