@@ -83,10 +83,12 @@ export class EntityDatabase implements Database {
    * Disconnects from existing connection, if any.
    */
   public async disconnect(): Promise<void> {
+    const { type, host, port, username, database, synchronize } = this.connectionOptions as any;
+
     if (this.connection) {
       if (this.logger) {
         // TODO: Hide authentication information
-        this.logger.debug('Disconnecting from database', this.connectionOptions);
+        this.logger.debug('Disconnecting from database', { type, host, port, username, database, synchronize });
       }
       await this.connection.close();
     }
