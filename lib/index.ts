@@ -88,7 +88,7 @@ export class EntityDatabase implements Database {
     if (this.connection) {
       if (this.logger) {
         // TODO: Hide authentication information
-        this.logger.debug('Disconnecting from database', { type, host, port, username, database, synchronize });
+        this.logger.debug('Disconnecting from database', { host, port, username, database });
       }
       await this.connection.close();
     }
