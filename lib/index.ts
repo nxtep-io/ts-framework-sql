@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as glob from 'glob';
 import {
   createConnection, Connection, ConnectionOptions,
-  ObjectType, EntitySchema, Repository, BaseEntity,
+  ObjectType, EntitySchema, Repository, BaseEntity, getMetadataArgsStorage,
 } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
@@ -22,7 +22,6 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
 export class EntityDatabase extends Database {
   public logger: Logger;
   protected connection: Connection;
-  protected entities: BaseEntity[] = [];
   protected connectionOptions: ConnectionOptions;
   protected readonly customQueries: Map<string, string> = new Map();
 
@@ -70,34 +69,40 @@ export class EntityDatabase extends Database {
     if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
       this.connectionOptions.entities.map((Entity: any) => {
         if (Entity && Entity.prototype && Entity.prototype.constructor) {
-          this.entities.push(Entity);
           this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
         } else {
           this.logger.warn(`Invalid model registered in database: ${Entity}`, Entity);
         }
       });
     }
+
+    // If available, continue with loading the custom queries
     if (this.options.customQueriesDir) {
       this.loadCustomQueries();
     }
   }
 
   /**
-   * Gets the database current state.
+   * Gets the map of the entities currently registered in the Database.
    */
-  public isReady(): boolean {
-    return this.connection && this.connection.isConnected;
+  entities() {
+    if (this.connectionOptions && this.connectionOptions.entities) {
+      return this.connectionOptions.entities
+        .map((Entity: any) => {
+          if (Entity && Entity.prototype && Entity.prototype.constructor) {
+            return { [Entity.prototype.constructor.name]: Entity };
+          }
+        })
+        .filter(a => !!a)
+        .reduce((aggr, next) => ({ ...aggr, ...next }), {});
+    }
   }
 
   /**
-   * Describe database status and entities.
+   * Gets the database current state.
    */
-  public describe() {
-    return {
-      name: this.options.name || 'EntityDatabase',
-      isReady: this.isReady(),
-      entities: this.entities,
-    };
+  public isConnected(): boolean {
+    return this.connection && this.connection.isConnected;
   }
 
   /**
@@ -105,11 +110,10 @@ export class EntityDatabase extends Database {
    */
   public async disconnect(): Promise<void> {
     const { type, host, port, username, database, synchronize } = this.connectionOptions as any;
-
     if (this.connection) {
       if (this.logger) {
         // TODO: Hide authentication information
-        this.logger.debug('Disconnecting from database', { host, port, username, database });
+        this.logger.debug('Disconnecting from database', { host, port, username });
       }
       await this.connection.close();
     }
@@ -142,7 +146,7 @@ export class EntityDatabase extends Database {
   private loadCustomQueries(): void {
     glob(path.join(this.options.customQueriesDir, './**/*.sql'), (err, matches) => {
       if (err) {
-        // Do something
+        this.logger.error('Could not load custom queries directory: ' + err.message, err);
       }
       matches.forEach(filePath => this.loadCustomQuery(filePath));
     });
