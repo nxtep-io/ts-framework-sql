@@ -16,34 +16,48 @@
   "scripts": {
     "build": "yarn run -s clean && tsc",
     "clean": "rimraf ./dist",
-    "test": "yarn run -s lint && jest --config jest.json",
-    "lint": "tslint --project tsconfig.json",
-    "precommit": "yarn test"
+    "test": "jest --config jest.json",
+    "lint": "tslint --config tslint.json --project ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index --again",
+      "pre-push": "yarn test"
+    }
+  },
+  "lint-staged": {
+    "{api,config,tests}/**/*.ts": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@types/sinon": "^4.3.1",
     "glob": "^7.1.2",
     "pg": "^7.4.1",
     "reflect-metadata": "^0.1.12",
-    "ts-framework": "git+https://github.com/nxtep-io/ts-framework.git#master",
     "ts-framework-common": "nxtep-io/ts-framework-common#v2",
     "typeorm": "^0.2.4"
   },
   "devDependencies": {
     "@types/express": "^4.11.1",
     "@types/glob": "^5.0.35",
-    "@types/jest": "^21.1.2",
+    "@types/jest": "^23.3.1",
     "@types/winston": "^2.3.9",
-    "husky": "^0.14.3",
-    "jest": "^21.2.1",
+    "husky": "^1.0.0-rc.13",
+    "jest": "^23.4.2",
+    "lint-staged": "^7.2.0",
     "nodemon": "^1.12.1",
     "rimraf": "^2.6.2",
     "sinon": "^5.0.3",
     "supertest": "^3.0.0",
-    "ts-jest": "^21.1.2",
+    "ts-jest": "^23.1.2",
     "ts-node": "^3.3.0",
-    "tslint": "^5.9.1",
-    "tslint-config-airbnb": "^5.5.0",
-    "typescript": "^2.5.3"
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.9.2",
+    "tslint-config-prettier": "^1.14.0",
+    "typescript": "^3.0.1"
   }
 }

@@ -10,8 +10,9 @@
   "dependencies": {
     "mysql": "^2.15.0",
     "pjson": "^1.0.9",
-    "ts-framework": "git+https://github.com/nxtep-io/ts-framework.git#master",
-    "ts-framework-sql": "../",
+    "sqlite3": "^4.0.2",
+    "ts-framework": "nxtep-io/ts-framework#v2",
+    "ts-framework-sql": "file:../",
     "ts-node": "^3.3.0",
     "typescript": "^2.9.2"
   },

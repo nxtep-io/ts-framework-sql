@@ -2,14 +2,14 @@ import 'reflect-metadata';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as glob from 'glob';
-import { 
-  createConnection, Connection, ConnectionOptions, 
+import {
+  createConnection, Connection, ConnectionOptions,
   ObjectType, EntitySchema, Repository, BaseEntity,
 } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
-import { Logger, DatabaseOptions, Database } from 'ts-framework-common';
+import { Logger, DatabaseOptions, Database, BaseServer } from 'ts-framework-common';
 
 export interface EntityDatabaseOptions extends DatabaseOptions {
   logger?: Logger;
@@ -19,8 +19,8 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
   entities: any[];
 }
 
-export class EntityDatabase implements Database {
-  protected logger: Logger;
+export class EntityDatabase extends Database {
+  public logger: Logger;
   protected connection: Connection;
   protected entities: BaseEntity[] = [];
   protected connectionOptions: ConnectionOptions;
@@ -31,27 +31,12 @@ export class EntityDatabase implements Database {
    * 
    * @param connection The TypeORM connection to the database
    */
-  constructor(protected options: EntityDatabaseOptions) {
-    this.logger = options.logger || new Logger();
+  constructor(public options: EntityDatabaseOptions) {
+    super(options);
 
     // TODO: Handle connection url
     this.connection = options.connection;
     this.connectionOptions = options.connection ? options.connection.options : options.connectionOpts;
-
-    // Log entities initialization
-    if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
-      this.connectionOptions.entities.map((Entity: any) => {
-        if (Entity && Entity.prototype && Entity.prototype.constructor) {
-          this.entities.push(Entity);
-          this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
-        } else {
-          this.logger.warn(`Invalid model registered in database: ${Entity}`, Entity);
-        }
-      });
-    }
-    if (options.customQueriesDir) {
-      this.loadCustomQueries();
-    }
   }
 
   /**
@@ -78,6 +63,26 @@ export class EntityDatabase implements Database {
   }
 
   /**
+   * Handles the database mounting routines.
+   */
+  onMount(): void {
+    // Log entities initialization
+    if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
+      this.connectionOptions.entities.map((Entity: any) => {
+        if (Entity && Entity.prototype && Entity.prototype.constructor) {
+          this.entities.push(Entity);
+          this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
+        } else {
+          this.logger.warn(`Invalid model registered in database: ${Entity}`, Entity);
+        }
+      });
+    }
+    if (this.options.customQueriesDir) {
+      this.loadCustomQueries();
+    }
+  }
+
+  /**
    * Gets the database current state.
    */
   public isReady(): boolean {
@@ -89,6 +94,7 @@ export class EntityDatabase implements Database {
    */
   public describe() {
     return {
+      name: this.options.name || 'EntityDatabase',
       isReady: this.isReady(),
       entities: this.entities,
     };

@@ -1,11 +1,8 @@
 import * as path from 'path';
 
 export default {
-  type: 'mysql',
-  host: process.env.DATABASE_HOST || 'localhost',
-  port: parseInt(process.env.DATABASE_PORT || '3306', 10),
-  username: process.env.DATABASE_USER || 'root',
-  password: process.env.DATABASE_PASSWORD || 'root',
+  type: "sqlite",
+  storage: "temp/sqlitedb.db",
   database: 'example_sql',
   synchronize: true,
   logging: false,

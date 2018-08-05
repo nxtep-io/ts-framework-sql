@@ -8,9 +8,9 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
     customQueriesDir?: string;
     entities: any[];
 }
-export declare class EntityDatabase implements Database {
-    protected options: EntityDatabaseOptions;
-    protected logger: Logger;
+export declare class EntityDatabase extends Database {
+    options: EntityDatabaseOptions;
+    logger: Logger;
     protected connection: Connection;
     protected entities: BaseEntity[];
     protected connectionOptions: ConnectionOptions;
@@ -28,6 +28,10 @@ export declare class EntityDatabase implements Database {
      */
     connect(): Promise<EntityDatabaseOptions>;
     /**
+     * Handles the database mounting routines.
+     */
+    onMount(): void;
+    /**
      * Gets the database current state.
      */
     isReady(): boolean;
@@ -35,6 +39,7 @@ export declare class EntityDatabase implements Database {
      * Describe database status and entities.
      */
     describe(): {
+        name: string;
         isReady: boolean;
         entities: BaseEntity[];
     };
@@ -59,10 +64,10 @@ export declare class EntityDatabase implements Database {
     /**
      * Loads all custom queries from the customQueriesDir path
      */
-    private loadCustomQueries();
+    private loadCustomQueries;
     /**
      * Loads a customQuery to the memory
      * @param filePath The file path to be loaded in memory
      */
-    private loadCustomQuery(filePath);
+    private loadCustomQuery;
 }

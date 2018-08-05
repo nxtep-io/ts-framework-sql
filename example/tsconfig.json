@@ -23,8 +23,9 @@
     "./api/**/*"
   ],
   "exclude": [
-    "dist",
-    "build",
-    "node_modules"
+    "./tests/**/*",
+    "./dist/**/*",
+    "./build/**/*",
+    "./node_modules/**/*"
   ]
 }
