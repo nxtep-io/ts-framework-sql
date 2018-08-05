@@ -2,7 +2,10 @@ import 'reflect-metadata';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as glob from 'glob';
-import { createConnection, Connection, ConnectionOptions, ObjectType, EntitySchema, Repository } from 'typeorm';
+import { 
+  createConnection, Connection, ConnectionOptions, 
+  ObjectType, EntitySchema, Repository, BaseEntity,
+} from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
@@ -19,6 +22,7 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
 export class EntityDatabase implements Database {
   protected logger: Logger;
   protected connection: Connection;
+  protected entities: BaseEntity[] = [];
   protected connectionOptions: ConnectionOptions;
   protected readonly customQueries: Map<string, string> = new Map();
 
@@ -38,6 +42,7 @@ export class EntityDatabase implements Database {
     if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
       this.connectionOptions.entities.map((Entity: any) => {
         if (Entity && Entity.prototype && Entity.prototype.constructor) {
+          this.entities.push(Entity);
           this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
         } else {
           this.logger.warn(`Invalid model registered in database: ${Entity}`, Entity);
@@ -77,6 +82,16 @@ export class EntityDatabase implements Database {
    */
   public isReady(): boolean {
     return this.connection && this.connection.isConnected;
+  }
+
+  /**
+   * Describe database status and entities.
+   */
+  public describe() {
+    return {
+      isReady: this.isReady(),
+      entities: this.entities,
+    };
   }
 
   /**

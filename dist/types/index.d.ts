@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Connection, ConnectionOptions, ObjectType, EntitySchema, Repository } from 'typeorm';
+import { Connection, ConnectionOptions, ObjectType, EntitySchema, Repository, BaseEntity } from 'typeorm';
 import { Logger, DatabaseOptions, Database } from 'ts-framework-common';
 export interface EntityDatabaseOptions extends DatabaseOptions {
     logger?: Logger;
@@ -12,6 +12,7 @@ export declare class EntityDatabase implements Database {
     protected options: EntityDatabaseOptions;
     protected logger: Logger;
     protected connection: Connection;
+    protected entities: BaseEntity[];
     protected connectionOptions: ConnectionOptions;
     protected readonly customQueries: Map<string, string>;
     /**
@@ -30,6 +31,13 @@ export declare class EntityDatabase implements Database {
      * Gets the database current state.
      */
     isReady(): boolean;
+    /**
+     * Describe database status and entities.
+     */
+    describe(): {
+        isReady: boolean;
+        entities: BaseEntity[];
+    };
     /**
      * Disconnects from existing connection, if any.
      */
