@@ -4114,7 +4114,7 @@ trim-right@^1.0.1:
 
 ts-framework-common@nxtep-io/ts-framework-common#v2:
   version "2.0.0"
-  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/e03a0776d552883dc54e066298caaa17373dde6c"
+  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/7452efceb1e0e4f5f5475176961a5b0eedc6781c"
   dependencies:
     "@types/express" "^4.16.0"
     "@types/raven" "^2.5.1"

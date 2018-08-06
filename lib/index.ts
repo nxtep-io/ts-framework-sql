@@ -96,6 +96,7 @@ export class EntityDatabase extends Database {
         .filter(a => !!a)
         .reduce((aggr, next) => ({ ...aggr, ...next }), {});
     }
+    return {};
   }
 
   /**
