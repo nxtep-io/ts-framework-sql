@@ -1,6 +1,6 @@
 {
   "name": "ts-framework-sql",
-  "version": "2.0.0-alpha",
+  "version": "2.0.0",
   "description": "A minimalistic web framework for TS",
   "author": "Luis Brito <luis@nxtep.io>",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "glob": "^7.1.2",
     "pg": "^7.4.1",
     "reflect-metadata": "^0.1.12",
-    "ts-framework-common": "nxtep-io/ts-framework-common#v2",
+    "ts-framework-common": "nxtep-io/ts-framework-common#2.0.1",
     "typeorm": "^0.2.4"
   },
   "devDependencies": {

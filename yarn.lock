@@ -4112,9 +4112,9 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-framework-common@nxtep-io/ts-framework-common#v2:
-  version "2.0.0"
-  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/7452efceb1e0e4f5f5475176961a5b0eedc6781c"
+ts-framework-common@nxtep-io/ts-framework-common#2.0.1:
+  version "2.0.1"
+  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/fc8d96f45c01f673aafd85bc935067cea85266e7"
   dependencies:
     "@types/express" "^4.16.0"
     "@types/raven" "^2.5.1"
