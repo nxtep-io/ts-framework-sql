@@ -66,11 +66,10 @@ export class EntityDatabase implements Database {
       this.logger.debug('Connecting to the database', { type, host, port, username, database, synchronize });
     }
 
-    if (this.connection) {
-      await this.connection.connect();
-    } else if (this.connectionOptions) {
+    if (this.connectionOptions) {
       this.connection = await createConnection(this.connectionOptions);
     }
+    
     if (this.logger) {
       this.logger.silly(`Successfully connected to the database`, { database });
     }
