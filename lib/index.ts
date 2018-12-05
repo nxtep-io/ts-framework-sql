@@ -1,7 +1,7 @@
+import 'reflect-metadata';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
-import 'reflect-metadata';
 import { Database, DatabaseOptions, Logger } from 'ts-framework-common';
 import { Connection, ConnectionOptions, createConnection, EntitySchema, ObjectType, Repository } from 'typeorm';
 

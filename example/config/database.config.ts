@@ -1,6 +1,7 @@
 import * as path from 'path';
 
 export default {
+  name: 'default',
   type: "sqlite",
   storage: "temp/sqlitedb.db",
   database: 'example_sql',
