@@ -11,6 +11,9 @@ export default class Company {
   @Column({ nullable: false })
   name: string;
 
+  @Column({ nullable: true })
+  website: string;
+
   @OneToMany(type => User, user => user.company)
   users: User[];
 

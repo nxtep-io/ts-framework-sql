@@ -1,15 +1,9 @@
-import 'reflect-metadata';
-import * as path from 'path';
 import * as fs from 'fs';
 import * as glob from 'glob';
-import {
-  createConnection, Connection, ConnectionOptions,
-  ObjectType, EntitySchema, Repository, BaseEntity, getMetadataArgsStorage,
-} from 'typeorm';
-import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
-import { Logger, DatabaseOptions, Database, BaseServer } from 'ts-framework-common';
+import * as path from 'path';
+import 'reflect-metadata';
+import { Database, DatabaseOptions, Logger } from 'ts-framework-common';
+import { Connection, ConnectionOptions, createConnection, EntitySchema, ObjectType, Repository } from 'typeorm';
 
 export interface EntityDatabaseOptions extends DatabaseOptions {
   logger?: Logger;
