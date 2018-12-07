@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-import { Connection, ConnectionOptions, ObjectType, EntitySchema, Repository } from 'typeorm';
-import { Logger, DatabaseOptions, Database } from 'ts-framework-common';
+import { Database, DatabaseOptions, LoggerInstance } from 'ts-framework-common';
+import { Connection, ConnectionOptions, EntitySchema, ObjectType, Repository } from 'typeorm';
 export interface EntityDatabaseOptions extends DatabaseOptions {
-    logger?: Logger;
+    logger?: LoggerInstance;
     connection?: Connection;
     connectionOpts?: ConnectionOptions;
     customQueriesDir?: string;
@@ -10,7 +10,7 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
 }
 export declare class EntityDatabase extends Database {
     options: EntityDatabaseOptions;
-    logger: Logger;
+    logger: LoggerInstance;
     protected connection: Connection;
     protected connectionOptions: ConnectionOptions;
     protected readonly customQueries: Map<string, string>;
