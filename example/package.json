@@ -13,7 +13,6 @@
     "sqlite3": "^4.0.2",
     "ts-framework": "nxtep-io/ts-framework#v2",
     "ts-framework-common": "nxtep-io/ts-framework-common#v2",
-    "ts-framework-sql": "file:../",
     "ts-node": "^3.3.0",
     "typescript": "^2.9.2"
   },

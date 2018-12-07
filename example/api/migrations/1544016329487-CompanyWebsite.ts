@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class CompanyWebsite1544014383933 implements MigrationInterface {
+export class CompanyWebsite1544016329487 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(`CREATE TABLE "temporary_company" ("id" varchar PRIMARY KEY NOT NULL, "name" varchar NOT NULL, "website" varchar)`);

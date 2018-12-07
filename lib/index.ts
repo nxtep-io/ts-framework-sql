@@ -2,11 +2,11 @@ import 'reflect-metadata';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
-import { Database, DatabaseOptions, Logger } from 'ts-framework-common';
+import { Database, DatabaseOptions, LoggerInstance } from 'ts-framework-common';
 import { Connection, ConnectionOptions, createConnection, EntitySchema, ObjectType, Repository } from 'typeorm';
 
 export interface EntityDatabaseOptions extends DatabaseOptions {
-  logger?: Logger;
+  logger?: LoggerInstance;
   connection?: Connection;
   connectionOpts?: ConnectionOptions;
   customQueriesDir?: string;
@@ -14,7 +14,7 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
 }
 
 export class EntityDatabase extends Database {
-  public logger: Logger;
+  public logger: LoggerInstance;
   protected connection: Connection;
   protected connectionOptions: ConnectionOptions;
   protected readonly customQueries: Map<string, string> = new Map();
