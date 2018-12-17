@@ -37,10 +37,14 @@ export default class MainDatabase extends Database {
 }
 ```
 
+For more information about configuration, refer to the [Connection Options](https://github.com/typeorm/typeorm/blob/master/docs/connection-options.md) documentation in the TypeORM [repository](https://github.com/typeorm/typeorm).
+
+<br />
+
 Now, you can bind the database initialization to the TS Framework Server instance.
 
 ```typescript
-import { Server, ServerOptions, Logger } from 'ts-framework/server';
+import { Server, ServerOptions, Logger } from 'ts-framework';
 import { StatusController } from './controllers/StatusController'
 import MainDatabase from './database';
 
@@ -59,6 +63,8 @@ export default class MainServer extends Server {
   }
 } 
 ```
+
+<br />
 
 **Create your first model**
 
@@ -83,7 +89,7 @@ export class User {
 }
 ```
 
-For more information, refer to the [Entities](https://github.com/typeorm/typeorm/blob/master/docs/entities.md) documentation in the TypeORM [repository]((https://github.com/typeorm/typeorm).
+For more information, refer to the [Entities](https://github.com/typeorm/typeorm/blob/master/docs/entities.md) documentation in the TypeORM [repository](https://github.com/typeorm/typeorm).
 
 <br />
 
