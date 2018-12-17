@@ -12,27 +12,31 @@ Create a new Database class to handle your entities and connections.
 ```typescript
 import Config from '../config';
 import { Database } from 'ts-framework-sql';
+import { User } from './models';
 
 export default class MainDatabase extends Database {
   constructor() {
     super({
-      type: "postgres",
-      logging: ["error"],
-      host: process.env.DATABASE_HOST || "localhost",
-      port: process.env.DATABASE_PORT || "5432",
-      username: process.env.DATABASE_USER || "postgres",
-      password: process.env.DATABASE_PASSWORD || "postgres",
-      database: process.env.DATABASE_NAME || "test",
+      connectionOptions: {
+        type: "postgres",
+        logging: ["error"],
+        host: process.env.DATABASE_HOST || "localhost",
+        port: process.env.DATABASE_PORT || "5432",
+        username: process.env.DATABASE_USER || "postgres",
+        password: process.env.DATABASE_PASSWORD || "postgres",
+        database: process.env.DATABASE_NAME || "test",
 
-      // IMPORTANT: Path should be relative to root
-      entities: ["./api/models/**/*.ts"],
-      migrations: ["./api/migrations/**/*.ts"],
-      cli: {
         // IMPORTANT: Path should be relative to root
-        entitiesDir: "./api/models",
-        migrationsDir: "./api/migrations"
-      }
-    })
+        entities: ["./api/models/**/*.ts"],
+        migrations: ["./api/migrations/**/*.ts"],
+        
+        cli: {
+          // IMPORTANT: Path should be relative to root
+          entitiesDir: "./api/models",
+          migrationsDir: "./api/migrations"
+        }
+      })
+    }
   }
 }
 ```
@@ -92,6 +96,43 @@ export class User {
 For more information, refer to the [Entities](https://github.com/typeorm/typeorm/blob/master/docs/entities.md) documentation in the TypeORM [repository](https://github.com/typeorm/typeorm).
 
 <br />
+
+Update the Main Database to register the new Entity.
+
+```typescript
+import Config from '../config';
+import { Database } from 'ts-framework-sql';
+import { User } from './models';
+
+export default class MainDatabase extends Database {
+  constructor() {
+    super({
+      connectionOptions: {
+        type: "postgres",
+        logging: ["error"],
+        host: process.env.DATABASE_HOST || "localhost",
+        port: process.env.DATABASE_PORT || "5432",
+        username: process.env.DATABASE_USER || "postgres",
+        password: process.env.DATABASE_PASSWORD || "postgres",
+        database: process.env.DATABASE_NAME || "test",
+        
+        // Register your entities 
+        entities: [User],
+
+        // IMPORTANT: Path should be relative to root
+        entities: ["./api/models/**/*.ts"],
+        migrations: ["./api/migrations/**/*.ts"],
+        
+        cli: {
+          // IMPORTANT: Path should be relative to root
+          entitiesDir: "./api/models",
+          migrationsDir: "./api/migrations"
+        }
+      })
+    }
+  }
+}
+```
 
 ## License
 
