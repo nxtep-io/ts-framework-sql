@@ -1,12 +1,5 @@
-import { Logger } from 'ts-framework';
-
-import {
-  createConnection, getConnectionOptions,
-  Connection, EntityManager, Repository, ObjectType, EntitySchema,
-} from 'typeorm';
-
 import Config from '../config';
-import { EntityDatabase } from '../../lib';
+import { EntityDatabase } from 'ts-framework-sql';
 import * as Models from './models';
 
 export default class MainDatabase extends EntityDatabase {

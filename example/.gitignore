@@ -1,4 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
 logs
 *.log
 npm-debug.log*
@@ -17,7 +16,6 @@ bower_components
 build/Release
 node_modules/
 jspm_packages/
-typings/
 .npm
 .eslintcache
 .node_repl_history
@@ -52,17 +50,11 @@ Temporary Items
 .Trash-*
 .nfs*
 .idea
-cmake-build-debug/
-.idea/**/mongoSettings.xml
 *.iws
 out/
 .idea_modules/
 atlassian-ide-plugin.xml
 .idea/replstate.xml
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db

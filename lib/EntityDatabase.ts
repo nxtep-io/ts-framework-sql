@@ -5,6 +5,8 @@ import 'reflect-metadata';
 import { BaseError, Database, DatabaseOptions, LoggerInstance } from 'ts-framework-common';
 import { Connection, ConnectionOptions, createConnection, EntitySchema, ObjectType, Repository } from 'typeorm';
 
+const PACKAGE = require('../package.json');
+
 export interface EntityDatabaseOptions extends DatabaseOptions {
   logger?: LoggerInstance;
   connection?: Connection;
@@ -38,20 +40,15 @@ export default class EntityDatabase extends Database {
    * @returns A promise to the connection instance.
    */
   public async connect(): Promise<EntityDatabaseOptions> {
-    const { type, host, port, username, database, synchronize } = this.connectionOptions as any;
-
-    if (this.logger) {
-      this.logger.debug('Connecting to the database', { type, host, port, username, database, synchronize });
-    }
+    const { type, host, port, username, database, synchronize } = this.connectionOptions || {} as any;
+    this.logger.debug('Connecting to the database', { type, host, port, username, database, synchronize });
 
     if (this.connection) {
       await this.connection.connect();
     } else if (this.connectionOptions) {
       this.connection = await createConnection(this.connectionOptions);
     }
-    if (this.logger) {
-      this.logger.silly(`Successfully connected to the database`, { database });
-    }
+    this.logger.silly(`Successfully connected to the database`, { database });
     return this.options;
   }
 
@@ -70,10 +67,10 @@ export default class EntityDatabase extends Database {
    */
   onMount(): void {
     // Log entities initialization
-    if (this.logger && this.connectionOptions && this.connectionOptions.entities) {
+    if (this.connectionOptions && this.connectionOptions.entities) {
       this.connectionOptions.entities.map((Entity: any) => {
         if (Entity && Entity.prototype && Entity.prototype.constructor) {
-          this.logger.silly(`Registering model in database: ${Entity.prototype.constructor.name}`);
+          this.logger.silly(`Registering model in ${this.options.name}: ${Entity.prototype.constructor.name}`);
         } else {
           this.logger.warn(`Invalid model registered in database: ${Entity}`, Entity);
         }
@@ -99,7 +96,7 @@ export default class EntityDatabase extends Database {
         })
         .filter(a => !!a)
         .reduce((aggr, next) => ({ ...aggr, ...next }), {});
-    }
+    } 
     return {};
   }
 
@@ -117,8 +114,7 @@ export default class EntityDatabase extends Database {
     const { type, host, port, username, database, synchronize } = this.connectionOptions as any;
     if (this.connection) {
       if (this.logger) {
-        // TODO: Hide authentication information
-        this.logger.debug('Disconnecting from database', { host, port, username });
+        this.logger.debug('Disconnecting from database', { name: this.options.name, host, port, username });
       }
       await this.connection.close();
     }
@@ -136,7 +132,7 @@ export default class EntityDatabase extends Database {
   /**
    * Executes a pre loaded query from the queries directory
    * The query name is relative to the customQueriesDir, so if you saved in
-   * `queries/user/list.sql` then, the identifier will `be user/list`
+   * `queries/user/list.sql` then, the identifier will be `user/list`
    * @param name The identifier of the query to be executed
    * @param params Any params if needed to add to the query
    */
@@ -166,5 +162,16 @@ export default class EntityDatabase extends Database {
     const name = location.slice(0, location.lastIndexOf('.'));
     const query = fs.readFileSync(filePath).toString();
     this.customQueries.set(name, query);
+  }
+
+  /**
+   * Gets entity database component description.
+   */
+  public describe() {
+    return {
+      ...super.describe(),
+      module: PACKAGE.name,
+      version: PACKAGE.version,
+    };
   }
 }

@@ -57,7 +57,7 @@ export default class EntityDatabase extends Database {
     /**
      * Executes a pre loaded query from the queries directory
      * The query name is relative to the customQueriesDir, so if you saved in
-     * `queries/user/list.sql` then, the identifier will `be user/list`
+     * `queries/user/list.sql` then, the identifier will be `user/list`
      * @param name The identifier of the query to be executed
      * @param params Any params if needed to add to the query
      */
@@ -71,4 +71,16 @@ export default class EntityDatabase extends Database {
      * @param filePath The file path to be loaded in memory
      */
     private loadCustomQuery;
+    /**
+     * Gets entity database component description.
+     */
+    describe(): {
+        module: any;
+        version: any;
+        name: string;
+        status: string;
+        context: {
+            [x: string]: any;
+        };
+    };
 }
