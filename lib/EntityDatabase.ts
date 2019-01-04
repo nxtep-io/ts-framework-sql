@@ -167,13 +167,23 @@ export default class EntityDatabase extends Database {
   }
 
   /**
-   * Drops current database.
+   * Drops current database schema.
    */
   public async drop(): Promise<any> {
     if (this.connection) {
       return this.connection.dropDatabase();
     }
-    throw new BaseError('Connection is not available for dropping schema ');
+    throw new BaseError('Connection is not available for dropping schema');
+  }
+
+  /**
+   * Migrates current database schema.
+   */
+  public async migrate(options: { transaction?: boolean } = {}): Promise<any> {
+    if (this.connection) {
+      return this.connection.runMigrations(options);
+    }
+    throw new BaseError('Connection is not available for migrating schema');
   }
 
   /**

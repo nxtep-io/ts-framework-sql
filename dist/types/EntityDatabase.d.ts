@@ -72,9 +72,15 @@ export default class EntityDatabase extends Database {
      */
     private loadCustomQuery;
     /**
-     * Drops current database.
+     * Drops current database schema.
      */
     drop(): Promise<any>;
+    /**
+     * Migrates current database schema.
+     */
+    migrate(options?: {
+        transaction?: boolean;
+    }): Promise<any>;
     /**
      * Gets entity database component description.
      */

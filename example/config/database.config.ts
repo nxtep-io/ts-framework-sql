@@ -6,7 +6,7 @@ export default {
   storage: "temp/sqlitedb.db",
   database: 'example_sql',
   synchronize: false,
-  logging: false,
+  logging: ["query", "error", "schema"],
   entities: ['api/models/*.ts'],
   migrations: ['api/migrations/*.ts'],
   cli: {

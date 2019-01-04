@@ -1,5 +1,5 @@
 import Config from '../config';
-import { EntityDatabase } from 'ts-framework-sql';
+import { EntityDatabase, EntityDatabaseOptions } from 'ts-framework-sql';
 import * as Models from './models';
 
 export default class MainDatabase extends EntityDatabase {
