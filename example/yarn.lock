@@ -4262,6 +4262,10 @@ nwsapi@^2.0.7:
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.9.tgz#77ac0cdfdcad52b6a1151a84e73254edc33ed016"
   integrity sha512-nlWFSCTYQcHk/6A9FFnfhKc14c3aFhfdNBXgo8Qgi9QTBu/qg3Ww+Uiz9wMzXd1T8GFxPc2QIHB6Qtf2XFryFQ==
 
+nxtep-typedoc-theme@nxtep-io/nxtep-typedoc-theme:
+  version "0.0.7"
+  resolved "https://codeload.github.com/nxtep-io/nxtep-typedoc-theme/tar.gz/153933e11d0d7e10b768f4aec76111c954c76063"
+
 oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
@@ -5863,17 +5867,19 @@ triple-beam@^1.2.0, triple-beam@^1.3.0:
   resolved "https://registry.yarnpkg.com/triple-beam/-/triple-beam-1.3.0.tgz#a595214c7298db8339eeeee083e4d10bd8cb8dd9"
   integrity sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==
 
-ts-framework-common@nxtep-io/ts-framework-common#2.2.0:
-  version "2.2.0"
-  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/94dd81ab47a3101aa76febecb4edc719b18a48d2"
+ts-framework-common@nxtep-io/ts-framework-common#2.3.0:
+  version "2.3.0"
+  resolved "https://codeload.github.com/nxtep-io/ts-framework-common/tar.gz/d581fc14971884716029aaa1163d346cd6bd007e"
   dependencies:
     "@sentry/node" "^4.4.1"
     "@types/express" "^4.16.0"
     "@types/lodash" "^4.14.119"
     clean-stack "^1.3.0"
+    fast-safe-stringify "^2.0.6"
     git-rev-sync "^1.12.0"
     lodash "^4.17.11"
     pjson "^1.0.9"
+    triple-beam "^1.3.0"
     winston "^3.1.0"
     winston-elasticsearch "github:nxtep-io/winston-elasticsearch"
     winston-transport "^4.2.0"
@@ -5896,7 +5902,7 @@ ts-framework-common@nxtep-io/ts-framework-common#2.3.2:
     winston-transport "^4.2.0"
 
 ts-framework-sql@../:
-  version "2.3.0"
+  version "2.4.0"
   dependencies:
     "@types/sinon" "^4.3.1"
     glob "^7.1.2"
@@ -5938,7 +5944,7 @@ ts-framework@nxtep-io/ts-framework#2.3.0:
     request-ip "^2.0.2"
     rimraf "^2.6.2"
     source-map-support "^0.5.0"
-    ts-framework-common nxtep-io/ts-framework-common#2.2.0
+    ts-framework-common nxtep-io/ts-framework-common#2.3.0
     ts-node "^7.0.1"
     typescript "^3.0.1"
     upath "^1.1.0"

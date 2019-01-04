@@ -68,7 +68,9 @@ export default class EntityDatabase extends Database {
   onMount(): void {
     // Log entities initialization
     if (this.connectionOptions && this.connectionOptions.entities) {
-      this.connectionOptions.entities.map((Entity: any) => {
+      const e: any[] = this.connectionOptions.entities;
+
+      e.map((Entity: any) => {
         if (Entity && Entity.prototype && Entity.prototype.constructor) {
           this.logger.silly(`Registering model in ${this.options.name}: ${Entity.prototype.constructor.name}`);
         } else {
@@ -96,7 +98,7 @@ export default class EntityDatabase extends Database {
         })
         .filter(a => !!a)
         .reduce((aggr, next) => ({ ...aggr, ...next }), {});
-    } 
+    }
     return {};
   }
 
@@ -162,6 +164,16 @@ export default class EntityDatabase extends Database {
     const name = location.slice(0, location.lastIndexOf('.'));
     const query = fs.readFileSync(filePath).toString();
     this.customQueries.set(name, query);
+  }
+
+  /**
+   * Drops current database.
+   */
+  public async drop(): Promise<any> {
+    if (this.connection) {
+      return this.connection.dropDatabase();
+    }
+    throw new BaseError('Connection is not available for dropping schema ');
   }
 
   /**

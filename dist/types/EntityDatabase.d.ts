@@ -72,6 +72,10 @@ export default class EntityDatabase extends Database {
      */
     private loadCustomQuery;
     /**
+     * Drops current database.
+     */
+    drop(): Promise<any>;
+    /**
      * Gets entity database component description.
      */
     describe(): {

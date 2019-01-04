@@ -23,6 +23,7 @@
     "@types/supertest": "^2.0.4",
     "hat": "^0.0.3",
     "jest": "^22.4.3",
+    "nxtep-typedoc-theme": "nxtep-io/nxtep-typedoc-theme",
     "rimraf": "^2.6.2",
     "supertest": "^3.0.0",
     "ts-jest": "^22.4.4"
