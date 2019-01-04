@@ -1,27 +1,30 @@
 {
   "name": "example",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/start.js",
   "license": "MIT",
   "scripts": {
-    "start": "node --require ts-node/register start.ts",
-    "test": "jest --config jest.json"
+    "start": "ts-framework listen",
+    "watch": "ts-framework watch",
+    "console": "ts-framework console",
+    "test": "jest --config jest.json",
+    "postinstall": "rimraf dist/ ./node_modules/ts-framework-sql/example"
   },
   "dependencies": {
-    "mysql": "^2.15.0",
     "pjson": "^1.0.9",
-    "sqlite3": "^4.0.2",
-    "ts-framework": "nxtep-io/ts-framework#v2",
-    "ts-framework-common": "nxtep-io/ts-framework-common#v2",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.9.2"
+    "sqlite3": "^4.0.4",
+    "ts-framework": "nxtep-io/ts-framework#2.3.0",
+    "ts-framework-common": "nxtep-io/ts-framework-common#2.3.2",
+    "ts-framework-sql": "../",
+    "ts-node": "^7.0.1"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/supertest": "^2.0.4",
     "hat": "^0.0.3",
     "jest": "^22.4.3",
-    "mongodb-memory-server": "^1.7.3",
+    "nxtep-typedoc-theme": "nxtep-io/nxtep-typedoc-theme",
+    "rimraf": "^2.6.2",
     "supertest": "^3.0.0",
     "ts-jest": "^22.4.4"
   }

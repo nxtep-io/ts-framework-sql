@@ -1,6 +1,6 @@
 {
   "name": "ts-framework-sql",
-  "version": "2.2.0",
+  "version": "2.4.0",
   "description": "A minimalistic web framework for TS",
   "author": "Luis Brito <luis@nxtep.io>",
   "license": "MIT",
@@ -15,8 +15,9 @@
   },
   "scripts": {
     "build": "yarn run -s clean && tsc",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist ./docs",
     "test": "jest --config jest.json",
+    "docs": "./scripts/docs.sh",
     "lint": "tslint --config tslint.json --project ."
   },
   "husky": {
@@ -38,7 +39,7 @@
     "glob": "^7.1.2",
     "pg": "^7.4.1",
     "reflect-metadata": "^0.1.12",
-    "ts-framework-common": "nxtep-io/ts-framework-common#2.2.0",
+    "ts-framework-common": "nxtep-io/ts-framework-common#2.3.2",
     "typeorm": "^0.2.4"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "jest": "^23.4.2",
     "lint-staged": "^7.2.0",
     "nodemon": "^1.18.7",
+    "nxtep-typedoc-theme": "nxtep-io/nxtep-typedoc-theme",
     "rimraf": "^2.6.2",
     "sinon": "^5.0.3",
     "supertest": "^3.0.0",
@@ -58,6 +60,7 @@
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.9.2",
     "tslint-config-prettier": "^1.14.0",
+    "typedoc": "^0.14.0",
     "typescript": "^3.0.1"
   }
 }
