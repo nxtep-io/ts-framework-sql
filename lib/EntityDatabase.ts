@@ -12,7 +12,6 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
   connection?: Connection;
   connectionOpts?: ConnectionOptions;
   customQueriesDir?: string;
-  entities: any[];
 }
 
 export default class EntityDatabase extends Database {
