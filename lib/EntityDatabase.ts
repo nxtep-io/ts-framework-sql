@@ -12,7 +12,6 @@ export interface EntityDatabaseOptions extends DatabaseOptions {
   connection?: Connection;
   connectionOpts?: ConnectionOptions;
   customQueriesDir?: string;
-  entities: any[];
 }
 
 export default class EntityDatabase extends Database {
@@ -70,7 +69,7 @@ export default class EntityDatabase extends Database {
     if (this.connectionOptions && this.connectionOptions.entities) {
       const e: any[] = this.connectionOptions.entities;
 
-      e.map((Entity: any) => {
+      e.forEach((Entity: any) => {
         if (Entity && Entity.prototype && Entity.prototype.constructor) {
           this.logger.silly(`Registering model in ${this.options.name}: ${Entity.prototype.constructor.name}`);
         } else {
@@ -113,7 +112,7 @@ export default class EntityDatabase extends Database {
    * Disconnects from existing connection, if any.
    */
   public async disconnect(): Promise<void> {
-    const { type, host, port, username, database, synchronize } = this.connectionOptions as any;
+    const { host, port, username } = this.connectionOptions as any;
     if (this.connection) {
       if (this.logger) {
         this.logger.debug('Disconnecting from database', { name: this.options.name, host, port, username });
