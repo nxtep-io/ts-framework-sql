@@ -13,6 +13,8 @@
     "outDir": "./dist",
     "declaration": true,
     "removeComments": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
     "declarationDir": "dist/types",
     "lib": [
       "es2017",
