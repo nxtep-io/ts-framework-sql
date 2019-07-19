@@ -1,6 +1,6 @@
 {
   "name": "ts-framework-sql",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "A minimalistic web framework for TS",
   "author": "Luis Brito <luis@nxtep.io>",
   "license": "MIT",
@@ -40,8 +40,8 @@
     "nano-errors": "nxtep-io/nano-errors",
     "pg": "^7.4.1",
     "reflect-metadata": "^0.1.12",
-    "ts-framework": "nxtep-io/ts-framework#2.5.3",
-    "ts-framework-common": "nxtep-io/ts-framework-common#2.4.1",
+    "ts-framework": "nxtep-io/ts-framework#2.6.0",
+    "ts-framework-common": "nxtep-io/ts-framework-common#2.4.2",
     "typeorm": "^0.2.4"
   },
   "devDependencies": {
@@ -63,6 +63,6 @@
     "tslint-config-airbnb": "^5.9.2",
     "tslint-config-prettier": "^1.14.0",
     "typedoc": "^0.14.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.5.3"
   }
 }
