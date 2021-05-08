@@ -42,7 +42,7 @@
     "reflect-metadata": "^0.1.12",
     "ts-framework": "nxtep-io/ts-framework#2.6.0",
     "ts-framework-common": "nxtep-io/ts-framework-common#2.4.2",
-    "typeorm": "^0.2.4"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@types/express": "^4.11.1",
